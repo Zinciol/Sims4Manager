@@ -49,5 +49,5 @@ jobs:
           # Commit the new zip files
           git commit -m "Add compressed zip files from /uncompressed folder"
           
-          # Push the changes back to the 'data' branch
-          git push origin data
+          # Push the changes
+          git push origin

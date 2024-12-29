@@ -37,10 +37,10 @@ jobs:
             
             # Only process directories that are the 3rd deepest
             if [[ $depth -eq 3 ]]; then
-              # Create a zip name based on the last two directory parts
+              # Create a zip name based on the last three directory parts
               zip_name=$(echo "$dir" | sed 's|./uncompressed/||' | tr '/' '-').zip
               
-              # Zip the contents of the 3rd deepest folder, not the folder itself
+              # Zip the contents of the 3rd deepest folder, not the folder itself, and place the zip in the root
               cd "$dir" && zip -r "../../$zip_name" ./*
 
               echo "Created zip file: $zip_name"
@@ -58,7 +58,7 @@ jobs:
           # Configure git to use the PAT token for authentication
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
           
-          # Stage all new zip files
+          # Stage all new zip files (in the root of the repository)
           git add *.zip
           
           # Commit the new zip files

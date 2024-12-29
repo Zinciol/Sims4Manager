@@ -4,7 +4,7 @@ import zipfile
 
 # Paths
 data_file = "data.json"
-output_dir = "output"
+output_dir = ""
 
 def create_directory(path):
     if not os.path.exists(path):

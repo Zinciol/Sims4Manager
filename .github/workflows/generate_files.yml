@@ -39,7 +39,7 @@ jobs:
         import json
         import os
         import shutil
-        with open('./data.json', 'r') as f:
+        with open('/data.json', 'r') as f:
             data = json.load(f)
         for mod_id, mod_info in data['mods'].items():
             for variation_id, variation_info in mod_info['variations'].items():

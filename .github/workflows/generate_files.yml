@@ -42,4 +42,4 @@ jobs:
         # Commit and push changes
         git add .
         git commit -m "Deploy generated files to gh-pages"
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages --force
+        git push https://${{ secrets.PAT }}@github.com/${{ github.repository }} gh-pages --force

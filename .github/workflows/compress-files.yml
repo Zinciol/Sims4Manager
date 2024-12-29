@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - data
-  workflow_dispatch:  # Add this line to allow manual trigger
 
 jobs:
   compress_files:

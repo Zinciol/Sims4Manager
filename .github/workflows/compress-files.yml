@@ -46,8 +46,10 @@ jobs:
               # Copy the files from the 3rd deepest directory to the temp folder
               cp -r "$dir"/* temp_zip_dir/
 
+              cd temp_zip_dir
               # Now zip the contents of temp_zip_dir into a zip at the root of the repo
-              zip -r "./$zip_name" temp_zip_dir/*
+              zip -r "./$zip_name" *
+              cd ..
 
               # Remove the temporary folder after zipping
               rm -rf temp_zip_dir

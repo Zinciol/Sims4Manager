@@ -1,2 +1,2 @@
 # Sims4Manager
-Manage your mods and cc with ease
+Easily find, manage and update your cc and mods.

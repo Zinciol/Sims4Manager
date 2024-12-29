@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - data
-  pull_request:
-    branches:
-      - data
+  workflow_dispatch:  # Add this line to allow manual trigger
 
 jobs:
   compress_files:
@@ -18,24 +16,9 @@ jobs:
         with:
           ref: data
 
-      - name: Set up zip utility
-        run: sudo apt-get install zip
-
-      - name: Find and Compress Files
+      - name: Print Current Directory
         run: |
-          # Find all subfolders recursively
-          find . -type d -exec bash -c 'zip -r "${1//\//-}.zip" "$1"' _ {} \;
-
-      - name: Commit and push the zip files
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          
-          # Stage all new zip files
-          git add *.zip
-          
-          # Commit the new zip files
-          git commit -m "Add compressed zip files"
-          
-          # Push the changes back to the 'data' branch or another branch if needed
-          git push origin data
+          echo "Current directory:"
+          pwd
+          echo "Files in the repository:"
+          ls -R

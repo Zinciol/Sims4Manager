@@ -37,13 +37,20 @@ jobs:
             
             # Only process directories that are the 3rd deepest
             if [[ $depth -eq 3 ]]; then
-              # Create a zip name based on the last three directory parts
+              # Extract the last three parts of the directory path and replace / with -
               zip_name=$(echo "$dir" | sed 's|./uncompressed/||' | tr '/' '-').zip
               
-              # Create the zip file with contents from the 3rd deepest directory
-              # Ensure only files (e.g., .package files) are included at the root of the zip file
-              cd "$dir"
-              zip -r "../../$zip_name" ./*
+              # Create a temporary folder to hold the files at the root level
+              mkdir temp_zip_dir
+
+              # Copy the files from the 3rd deepest directory to the temp folder
+              cp -r "$dir"/* temp_zip_dir/
+
+              # Now zip the contents of temp_zip_dir into a zip at the root of the repo
+              zip -r "../../$zip_name" temp_zip_dir/*
+
+              # Remove the temporary folder after zipping
+              rm -rf temp_zip_dir
 
               echo "Created zip file: $zip_name"
             fi

@@ -1,0 +1,53 @@
+name: Compress Files from /files Folder in Data Branch
+
+on:
+  push:
+    branches:
+      - data
+
+jobs:
+  compress_files:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the 'data' branch
+      - name: Checkout data branch
+        uses: actions/checkout@v3
+        with:
+          ref: data
+
+      # Set up zip utility
+      - name: Set up zip utility
+        run: sudo apt-get install -y zip
+
+      # Debugging step: List files in the /files folder
+      - name: List files in /files folder
+        run: |
+          echo "Listing directories under /files:"
+          ls -R files
+
+      # Find and compress only directories under /files
+      - name: Find and Compress Files in /files
+        run: |
+          # Find all directories under the /files folder and compress them
+          find ./files -type d -exec bash -c 'zip -r "${1//\//-}.zip" "$1"' _ {} \;
+
+      # Commit and push the zip files
+      - name: Commit and push the zip files
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use the token for authentication
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          # Configure git to use the PAT token for authentication
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
+          
+          # Stage all new zip files
+          git add *.zip
+          
+          # Commit the new zip files
+          git commit -m "Add compressed zip files from /files folder"
+          
+          # Push the changes back to the 'data' branch
+          git push origin

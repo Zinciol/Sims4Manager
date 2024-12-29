@@ -39,4 +39,4 @@ jobs:
           git commit -m "Add compressed zip files"
           
           # Push the changes back to the 'data' branch or another branch if needed
-          git push origin data
+          git push origin

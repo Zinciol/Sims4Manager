@@ -19,12 +19,15 @@ jobs:
         python-version: '3.10'
 
     - name: Process data.json
-      run: python scripts/process_data.py
+      run: python scripts/process_data.py  # Adjust based on your file path
 
     - name: Deploy to gh-pages
       run: |
+        # Configure Git with username and email
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
+        
+        # Fetch and checkout gh-pages branch
         git fetch origin gh-pages || git checkout --orphan gh-pages
         git checkout gh-pages
         
@@ -32,14 +35,16 @@ jobs:
         mkdir -p ../temp_output
         mv * ../temp_output
         
-        # Clean the branch
+        # Clean the branch (remove all files in the gh-pages branch)
         rm -rf *
         
-        # Move the files back
+        # Move the files back from the temporary location
         mv ../temp_output/* .
         rmdir ../temp_output
         
-        # Commit and push changes
+        # Commit the new files
         git add .
         git commit -m "Deploy generated files to gh-pages"
+        
+        # Push changes using PAT for authentication
         git push https://${{ secrets.PAT }}@github.com/${{ github.repository }} gh-pages --force

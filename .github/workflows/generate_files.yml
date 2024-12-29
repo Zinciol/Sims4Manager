@@ -39,6 +39,10 @@ jobs:
         import json
         import os
         import shutil
+
+        # Debugging: print current working directory
+        print('Current working directory:', os.getcwd())
+        
         with open('data.json', 'r') as f:
             data = json.load(f)
         for mod_id, mod_info in data['mods'].items():

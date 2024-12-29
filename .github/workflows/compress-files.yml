@@ -30,14 +30,19 @@ jobs:
       # Find and compress only the most inner directories under /uncompressed
       - name: Find and Compress the Most Inner Directories in /uncompressed
         run: |
-          # Find the deepest directory and compress it
+          # Find the deepest directories and compress only the files inside the 3rd deepest folder
           find ./uncompressed -type d | while read dir; do
-            # Get the deepest directory based on the folder structure
+            # Get the depth of the current directory
             depth=$(echo "$dir" | tr -cd '/' | wc -c)
-            if [[ $depth -gt 3 ]]; then
-              # Create zip with name based on the last 3 directory parts
+            
+            # Only process directories that are the 3rd deepest
+            if [[ $depth -eq 3 ]]; then
+              # Create a zip name based on the last two directory parts
               zip_name=$(echo "$dir" | sed 's|./uncompressed/||' | tr '/' '-').zip
-              zip -r "$zip_name" "$dir"
+              
+              # Zip the contents of the 3rd deepest folder, not the folder itself
+              cd "$dir" && zip -r "../../$zip_name" ./*
+
               echo "Created zip file: $zip_name"
             fi
           done

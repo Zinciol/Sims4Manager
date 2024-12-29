@@ -1,4 +1,5 @@
 name: Compress Files from Data Branch
+permissions: write-all
 
 on:
   push:

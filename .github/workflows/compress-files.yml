@@ -48,7 +48,7 @@ jobs:
 
               cd temp_zip_dir
               # Now zip the contents of temp_zip_dir into a zip at the root of the repo
-              zip -r "./$zip_name" *
+              zip -r "../$zip_name" *
               cd ..
 
               # Remove the temporary folder after zipping

@@ -36,32 +36,28 @@ jobs:
         
         # Read data.json and move files dynamically
         python -c "
-import json
-import os
-import shutil
-
-# Load data from the data.json file
-with open('data.json', 'r') as f:
-    data = json.load(f)
-
-# Create necessary directories and move files
-for mod_id, mod_info in data['mods'].items():
-    for variation_id, variation_info in mod_info['variations'].items():
-        for version_id, version_info in variation_info['versions'].items():
-            # Create the directory for the mod, variation, and version
-            target_dir = f'{mod_id}/{variation_id}/{version_id}'
-            os.makedirs(target_dir, exist_ok=True)
+        import json
+        import os
+        import shutil
+        with open('data.json', 'r') as f:
+            data = json.load(f)
+        for mod_id, mod_info in data['mods'].items():
+            for variation_id, variation_info in mod_info['variations'].items():
+                for version_id, version_info in variation_info['versions'].items():
+                    # Create the directory for the mod, variation, and version
+                    target_dir = f'{mod_id}/{variation_id}/{version_id}'
+                    os.makedirs(target_dir, exist_ok=True)
             
-            # Move the zip file
-            zip_file = f'{mod_id}-{variation_id}-{version_id}.zip'
-            if os.path.exists(zip_file):
-                shutil.move(zip_file, os.path.join(target_dir, zip_file))
+                    # Move the zip file
+                    zip_file = f'{mod_id}-{variation_id}-{version_id}.zip'
+                    if os.path.exists(zip_file):
+                        shutil.move(zip_file, os.path.join(target_dir, zip_file))
             
-            # Move the index.html file
-            html_file = f'{mod_id}/{variation_id}/{version_id}/index.html'
-            if os.path.exists(html_file):
-                shutil.move(html_file, os.path.join(target_dir, 'index.html'))
-"
+                    # Move the index.html file
+                    html_file = f'{mod_id}/{variation_id}/{version_id}/index.html'
+                    if os.path.exists(html_file):
+                        shutil.move(html_file, os.path.join(target_dir, 'index.html'))
+        "
         
         # Commit the new files
         git add .

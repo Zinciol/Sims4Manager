@@ -36,7 +36,7 @@ jobs:
             depth=$(echo "$dir" | tr -cd '/' | wc -c)
             
             # Only process directories that are the 3rd deepest
-            if [[ $depth -eq 3 ]]; then
+            if [[ $depth -eq 4 ]]; then
               # Extract the last three parts of the directory path and replace / with -
               zip_name=$(echo "$dir" | sed 's|./uncompressed/||' | tr '/' '-').zip
               

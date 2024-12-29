@@ -1,0 +1,41 @@
+{
+    "mods": {
+        "00001": {
+            "name": "More Columns In CAS",
+            "variations": {
+                "00001": {
+                    "name": "3 Columns",
+                    "versions": {
+                        "00001": {
+                            "name": "v1.33"
+                        }
+                    }
+                },
+                "00002": {
+                    "name": "4 Columns",
+                    "versions": {
+                        "00001": {
+                            "name": "v1.33"
+                        }
+                    }
+                },
+                "00003": {
+                    "name": "5 Columns",
+                    "versions": {
+                        "00001": {
+                            "name": "v1.33"
+                        }
+                    }
+                },
+                "00004": {
+                    "name": "6 Columns",
+                    "versions": {
+                        "00001": {
+                            "name": "v1.33"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
